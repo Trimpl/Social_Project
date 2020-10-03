@@ -1,0 +1,69 @@
+$primary: #991145;
+$secondary: hsla(197, 100%, 69%, 0.192);
+$white: rgb(0, 0, 0);
+$gray: hsla(197, 100%, 69%, 0.31);
+
+.img-avatar {
+    overflow: hidden;
+    border-radius: 50%;
+    float: left;
+    display: block;
+}
+
+.btn_send_friend {
+    margin-top: 10px;
+    margin-right: 20px;
+    background: $gray;
+    height: 30px;
+    width: 150px;
+    border: none;
+    border-radius: 3px;
+    color: rgb(0, 83, 151);
+    font-size: 15px;
+    font-family: 'system-ui';
+    position: relative;
+    transition: 1s;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding-top: 5px;
+  }
+  
+  .btn_send_friend #circle {
+    width: 5px;
+    height: 5px;
+    background: transparent;
+    border-radius: 0%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    overflow: hidden;
+    transition: 500ms;
+  }
+  
+  .noselect {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+  }
+  
+  .btn_send_friend:hover {
+    background: $secondary;
+  }
+  
+  .btn_send_friend:hover #circle {
+    height: 30px;
+    width: 150px;
+    left: 0;
+    border-radius: 0;
+    border-bottom: 2px solid #eee;
+  }
+
+  .link {
+      margin-left: 120px;
+  }

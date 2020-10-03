@@ -1,0 +1,108 @@
+/* Provide sufficient contrast against white background */
+html {
+  min-height: 100%;
+  background: rgb(225, 233, 238);
+}
+.bg_index {
+  background: rgb(225, 233, 238);
+  min-height: 100%;
+}
+
+code {
+  color: #E01A76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.img-avatar {
+  overflow: hidden;
+  border-radius: 50%;
+  float: left;
+  display: block;
+}
+
+/* posts */
+
+.post_header {
+  position: relative;
+  min-height: 50px;
+  padding: 15px 0px 0;
+}
+
+.post_content {
+  line-height: 14px;
+  position: relative;
+  overflow: visible;
+}
+
+.post_image {
+  float: left;
+  display: block;
+}
+
+.post_header_info {
+  margin-left: 65px;
+  padding-top: 2px;
+}
+
+.post_author {
+  padding-right: 20px;
+  font-size: 21px;
+  font-weight: 600;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  color: #363636;
+  line-height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.post_author:hover {
+  text-decoration: underline;
+}
+
+.post_date {
+  display: flex;
+  white-space: pre;
+  position: relative;
+  font-size: 12.5px;
+  color: #363636 !important;
+  a {
+    color: #363636 !important;
+    text-decoration: none
+  }
+}
+
+.wall_post_text {
+  line-height: 1.5;
+  max-width: 500px;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  position: relative;
+  z-index: 2;
+}
+
+.wall_post_text_cut {
+  max-height: 150px;
+  line-height: 1.5;
+  max-width: 500px;
+  overflow: hidden;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+/* posts */
+::-webkit-scrollbar {
+  width: 1em;
+}
+
+
+
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}

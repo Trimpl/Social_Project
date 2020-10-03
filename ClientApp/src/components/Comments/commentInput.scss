@@ -1,0 +1,129 @@
+$primary: #411199;
+$secondary: #388def;
+$white: rgb(0, 0, 0);
+$gray: #9b9b9b;
+
+.form__group {
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 0px;
+    width: 100%;
+    display: flex;
+    font-size: 1.5rem;
+}
+
+.form__field {
+    z-index: 20;
+    font-family: inherit;
+    min-width: 150px;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid $gray;
+    outline: 0;
+    font-size: 1.3rem;
+    color: $white;
+    padding: 0px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+        color: transparent;
+    }
+
+    &:placeholder-shown~.form__label {
+        font-size: 1.3rem;
+        cursor: text;
+        top: 20px;
+    }
+}
+
+.form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $gray;
+}
+
+.form__field:focus {
+    z-index: 20;
+    ~.form__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: $primary;
+        font-weight: 700;
+    }
+
+    padding-bottom: 7px;
+    font-weight: 10;
+    border-width: 3px;
+    border-image: linear-gradient(to right, $primary, $secondary);
+    border-image-slice: 1;
+}
+
+/* reset input */
+.form__field {
+    z-index: 20;
+    &:required,
+    &:invalid {
+        box-shadow: none;
+    }
+}
+
+.btn_send {
+    margin-right: 20px;
+    background: $gray;
+    height: 30px;
+    min-width: 60px;
+    border: none;
+    border-radius: 3px;
+    color: rgb(236, 236, 236);
+    font-size: 20px;
+    font-family: 'Cookie', cursive;
+    position: relative;
+    transition: 1s;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding-top: 5px;
+  }
+  
+  .btn_send #circle {
+    width: 5px;
+    height: 5px;
+    background: transparent;
+    border-radius: 0%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    overflow: hidden;
+    transition: 500ms;
+  }
+  
+  .noselect {
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+  }
+  
+  .btn_send:hover {
+    background: $secondary;
+  }
+  
+  .btn_send:hover #circle {
+    height: 30px;
+    width: 60px;
+    left: 0;
+    border-radius: 0;
+    border-bottom: 2px solid #eee;
+  }

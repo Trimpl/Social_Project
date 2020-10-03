@@ -1,0 +1,118 @@
+$primary: #991145;
+$secondary: hsla(197, 100%, 69%, 0.192);
+$white: rgb(0, 0, 0);
+$gray: hsla(197, 100%, 69%, 0.31);
+
+.page_block {
+  max-width: 300px;
+  background: #636363;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 0 #555555, 0 0 0 1px #555555;
+  padding-bottom: 50px;
+}
+
+.image_album {
+  float: left;
+  width: 123px;
+  height: 123px;
+  overflow: hidden;
+  img {
+    object-fit: cover;
+    height: 123px;
+    border-radius: 2px;
+  }
+}
+
+.div_info {
+  max-height: 500px !important;
+  width: auto;
+}
+
+
+.btn_send_profile {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background: $gray;
+  height: 30px;
+  width: 150px;
+  border: none;
+  border-radius: 3px;
+  color: rgb(0, 83, 151);
+  font-size: 15px;
+  font-family: 'system-ui';
+  position: relative;
+  transition: 1s;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding-top: 5px;
+}
+
+.btn_send_profile #circle {
+  width: 5px;
+  height: 5px;
+  background: transparent;
+  border-radius: 0%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  overflow: hidden;
+  transition: 500ms;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.btn_send_profile:hover {
+  background: $secondary;
+}
+
+.btn_send_profile:hover #circle {
+  height: 30px;
+  width: 150px;
+  left: 0;
+  border-radius: 0;
+  border-bottom: 2px solid #eee;
+}
+
+.people_cell {
+  float: left;
+  width: 60px;
+  padding-left: 10px;
+}
+
+.subs {
+  overflow: hidden;
+  margin-bottom: auto;
+}
+
+.people_cell_name {
+  text-align: center;
+  padding-bottom: 5px;
+  color: #262626;
+  display: block;
+  font-size: 14px;
+  line-height: 14px;
+  max-width: 64px;
+}
+
+#photo {
+  min-width: 180px;
+}
+
+#photo:hover #circle {
+  height: 30px;
+  width: 180px;
+  left: 0;
+  border-radius: 0;
+  border-bottom: 2px solid #eee;
+}
