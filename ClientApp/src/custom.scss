@@ -106,3 +106,17 @@ code {
   background-color: darkgrey;
   outline: 1px solid slategrey;
 }
+
+.notifications {
+  border-bottom: #363636 1px !important;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px; /* Радиус скругления */
+    border: 0px;
+    margin-right: 10px;
+  }
+  svg {
+    margin-left: 10px;
+  }
+}

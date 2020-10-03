@@ -1,3 +1,4 @@
+import { request } from 'http';
 import { Action, Reducer } from 'redux';
 import { AppThunkAction } from '..';
 import authService from '../../components/api-authorization/AuthorizeService';
@@ -70,6 +71,13 @@ export const reducer: Reducer<NotificationsState> = (state: NotificationsState |
                 isLoading: true,
                 notifications: state.notifications
             };
+        case 'REMOVE_NOTIFICATIONS' :
+            return {
+                ...state,
+                notifications: state.notifications.filter(function(data) { 
+                    return !action.ids.includes(data.id)
+                })
+            }
         case 'RECEIVE_NOTIFICATIONS':
             return {
                 isLoading: false,
