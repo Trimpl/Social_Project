@@ -2,10 +2,12 @@ import { request } from 'http';
 import { Action, Reducer } from 'redux';
 import { AppThunkAction } from '..';
 import authService from '../../components/api-authorization/AuthorizeService';
+import { Post } from '../Posts/PostsStore';
 
 export interface NotificationsState {
     isLoading: boolean
     notifications: Notification[]
+    post: Post | undefined
 }
 
 interface Notification {
@@ -16,6 +18,7 @@ interface Notification {
     isViewed: boolean
     createDate: Date
     image: string
+    postId: string
 }
 interface REQUEST_NOTIFICATIONS {
     type: 'REQUEST_NOTIFICATIONS'
@@ -34,10 +37,13 @@ interface REMOVE_NOTIFICATIONS {
 }
 interface RENDER_VIEW_POST {
     type: 'RENDER_VIEW_POST'
-    id: string
+    post: Post
+}
+interface DELETE_VIEW_POST {
+    type: 'DELETE_VIEW_POST'
 }
 
-type KnownAction = RENDER_VIEW_POST | REQUEST_NOTIFICATIONS | RECEIVE_NOTIFICATIONS | NOTIFICATION_RECIEVED | REMOVE_NOTIFICATIONS
+type KnownAction = DELETE_VIEW_POST | RENDER_VIEW_POST | REQUEST_NOTIFICATIONS | RECEIVE_NOTIFICATIONS | NOTIFICATION_RECIEVED | REMOVE_NOTIFICATIONS
 
 export const actionCreators = {
     request: (): AppThunkAction<KnownAction> => async (dispatch, getState) => {
@@ -60,12 +66,26 @@ export const actionCreators = {
         if (ids != []) dispatch({ type: 'REMOVE_NOTIFICATIONS', ids: ids })
     },
     renderViewPost: (id: string): AppThunkAction<KnownAction> => async (dispatch, getState) => {
-        
-        if (id != '') dispatch({ type: 'RENDER_VIEW_POST', id: id })
+        const token = await authService.getAccessToken()
+        fetch(`api/getViewPost?postId=${id}`, {
+            headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+        })
+            .then(response => {
+                return response.ok
+                    ? response.json()
+                    : []
+            })
+            .then(data => {
+                console.log(data)
+                dispatch({ type: 'RENDER_VIEW_POST', post: data })
+            });
+    },
+    deleteViewPost: (): AppThunkAction<KnownAction> => async (dispatch, getState) => {
+        dispatch({ type: 'DELETE_VIEW_POST'})
     },
 };
 
-const unloadedState: NotificationsState = { isLoading: false, notifications: [] };
+const unloadedState: NotificationsState = { isLoading: false, notifications: [], post: undefined };
 
 export const reducer: Reducer<NotificationsState> = (state: NotificationsState | undefined, incomingAction: Action): NotificationsState => {
     if (state === undefined) {
@@ -76,18 +96,30 @@ export const reducer: Reducer<NotificationsState> = (state: NotificationsState |
     switch (action.type) {
         case 'REQUEST_NOTIFICATIONS':
             return {
+                ...state,
                 isLoading: true,
                 notifications: state.notifications
             };
-        case 'REMOVE_NOTIFICATIONS' :
+        case 'DELETE_VIEW_POST':
             return {
                 ...state,
-                notifications: state.notifications.filter(function(data) { 
+                post: undefined
+            }
+        case 'RENDER_VIEW_POST':
+            return {
+                ...state,
+                post: action.post
+            };
+        case 'REMOVE_NOTIFICATIONS':
+            return {
+                ...state,
+                notifications: state.notifications.filter(function (data) {
                     return !action.ids.includes(data.id)
                 })
             }
         case 'RECEIVE_NOTIFICATIONS':
             return {
+                ...state,
                 isLoading: false,
                 notifications: action.notifications
             };

@@ -6,6 +6,7 @@ import { ApplicationState } from '../../store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { ViewPost } from '../Posts/ViewPost';
+import { Post } from '../../store/Posts/PostsStore';
 
 type NotificationProps =
     NotificationStore.NotificationsState &
@@ -13,14 +14,14 @@ type NotificationProps =
     RouteComponentProps<{}>;
 interface IState {
     count: string
-    post: JSX.Element
+    post: Post | undefined
 }
 class Notifications extends React.PureComponent<NotificationProps, IState> {
     constructor(props: NotificationProps) {
         super(props)
         this.state = {
             count: this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString(),
-            post: <div></div>
+            post: undefined
         }
         this.remove = this.remove.bind(this)
     }
@@ -47,14 +48,17 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
         //     e.stopPropagation();
         // });
     }
-    private renderViewPost() {
-        console.log('POSHEL NAXUI')
+    private renderViewPost(id: string) {
+        this.props.renderViewPost(id)
+    }
+    private deleteViewPost() {
+        this.props.deleteViewPost()
     }
     render() {
         var count = this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString()
         return (
             <React.Fragment>
-                {this.state.post}
+                {this.props.post ? <ViewPost post={this.props.post} delete={this.deleteViewPost.bind(this)}/> : 'asd'}
                 {/* <button onClick={() => this.renderViewPost()}>
                     poshel naxui
                 </button> */}
@@ -74,7 +78,7 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
                                     <div key={data.id} className="dropdown-item notifications">
                                         <div>
                                             {b}
-                                            <div onClick={() => this.renderViewPost()}>{data.text}</div>
+                                            <div onClick={() => this.renderViewPost(data.postId)}>{data.text}</div>
                                             <FontAwesomeIcon icon={faTrashAlt} onClick={(event) => this.remove(data.id, event)} />
                                         </div>
                                     </div>

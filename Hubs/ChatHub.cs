@@ -118,7 +118,7 @@ namespace WebApplication1.Hubs
             };
             string userWhoToSend = _context.Posts.FirstOrDefault(x => x.Id == postId).userId;
             var userWhoLiked = await _context.UserInfo.FindAsync(userId);
-            if (model.isLiked && userWhoToSend != userWhoLiked.Id) await this.CreateNotification(userWhoToSend, "like", $"You have like from {userWhoLiked.FirstName} {userWhoLiked.SecondName}", userWhoLiked.Avatar);
+            if (model.isLiked && userWhoToSend != userWhoLiked.Id) await this.CreateNotification(userWhoToSend, "like", $"You have like from {userWhoLiked.FirstName} {userWhoLiked.SecondName}", userWhoLiked.Avatar, postId);
             await Clients.All.SendAsync("NewLike", model);
         }
         public async Task SendComment(string userId, string postId, string text)
@@ -137,7 +137,7 @@ namespace WebApplication1.Hubs
                     link = userId
                 };
                 string userWhoToSend = _context.Posts.FirstOrDefault(x => x.Id == postId).userId;
-                if (userWhoToSend != userId) await this.CreateNotification(userWhoToSend, "comment", $"You have new comment: {comment.text}", user.Avatar);
+                if (userWhoToSend != userId) await this.CreateNotification(userWhoToSend, "comment", $"You have new comment: {comment.text}", user.Avatar, postId);
                 await _context.Comments.AddAsync(comment);
                 await _context.SaveChangesAsync();
                 comment.userId = $"{user.FirstName} {user.SecondName}";
@@ -236,7 +236,7 @@ namespace WebApplication1.Hubs
             {
             }
         }
-        public async Task CreateNotification(string userId, string method, string text, string image)
+        public async Task CreateNotification(string userId, string method, string text, string image, string postId)
         {
             
             string link = "пока ничего";
@@ -253,7 +253,8 @@ namespace WebApplication1.Hubs
                 link = link,
                 createDate = DateTime.Now,
                 isViewed = false,
-                image = image
+                image = image,
+                postId = postId
             };
             await _context.Notifications.AddAsync(notification);
             await _context.SaveChangesAsync();
