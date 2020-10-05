@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { ViewPost } from '../Posts/ViewPost';
 
 type NotificationProps =
     NotificationStore.NotificationsState &
@@ -12,12 +13,14 @@ type NotificationProps =
     RouteComponentProps<{}>;
 interface IState {
     count: string
+    post: JSX.Element
 }
 class Notifications extends React.PureComponent<NotificationProps, IState> {
     constructor(props: NotificationProps) {
         super(props)
         this.state = {
-            count: this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString()
+            count: this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString(),
+            post: <div></div>
         }
         this.remove = this.remove.bind(this)
     }
@@ -28,9 +31,9 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
         const a = [id]
         this.props.removeNotifications(a)
         this.setState({ count: this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString() })
-        $('.dropdown-menu').click(function(e) {
-            e.stopPropagation();
-        });
+        // $('.dropdown-menu').click(function(e) {
+        //     e.stopPropagation();
+        // });
     }
     private ensureDataFetched() {
         this.props.request()
@@ -40,14 +43,21 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
     }
     public prevent(e: React.MouseEvent) {
         console.log(e.currentTarget)
-        $('.dropdown-menu').click(function(e) {
-            e.stopPropagation();
-        });
+        // $('.dropdown-menu').click(function(e) {
+        //     e.stopPropagation();
+        // });
+    }
+    private renderViewPost() {
+        console.log('POSHEL NAXUI')
     }
     render() {
         var count = this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString()
         return (
             <React.Fragment>
+                {this.state.post}
+                {/* <button onClick={() => this.renderViewPost()}>
+                    poshel naxui
+                </button> */}
                 <div className="dropdown">
                     <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -64,7 +74,7 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
                                     <div key={data.id} className="dropdown-item notifications">
                                         <div>
                                             {b}
-                                            {data.text}
+                                            <div onClick={() => this.renderViewPost()}>{data.text}</div>
                                             <FontAwesomeIcon icon={faTrashAlt} onClick={(event) => this.remove(data.id, event)} />
                                         </div>
                                     </div>

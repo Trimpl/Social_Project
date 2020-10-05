@@ -32,8 +32,12 @@ interface REMOVE_NOTIFICATIONS {
     type: 'REMOVE_NOTIFICATIONS'
     ids: string[]
 }
+interface RENDER_VIEW_POST {
+    type: 'RENDER_VIEW_POST'
+    id: string
+}
 
-type KnownAction = REQUEST_NOTIFICATIONS | RECEIVE_NOTIFICATIONS | NOTIFICATION_RECIEVED | REMOVE_NOTIFICATIONS
+type KnownAction = RENDER_VIEW_POST | REQUEST_NOTIFICATIONS | RECEIVE_NOTIFICATIONS | NOTIFICATION_RECIEVED | REMOVE_NOTIFICATIONS
 
 export const actionCreators = {
     request: (): AppThunkAction<KnownAction> => async (dispatch, getState) => {
@@ -54,7 +58,11 @@ export const actionCreators = {
     },
     removeNotifications: (ids: string[]): AppThunkAction<KnownAction> => async (dispatch, getState) => {
         if (ids != []) dispatch({ type: 'REMOVE_NOTIFICATIONS', ids: ids })
-    }
+    },
+    renderViewPost: (id: string): AppThunkAction<KnownAction> => async (dispatch, getState) => {
+        
+        if (id != '') dispatch({ type: 'RENDER_VIEW_POST', id: id })
+    },
 };
 
 const unloadedState: NotificationsState = { isLoading: false, notifications: [] };

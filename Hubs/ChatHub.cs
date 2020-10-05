@@ -238,7 +238,13 @@ namespace WebApplication1.Hubs
         }
         public async Task CreateNotification(string userId, string method, string text, string image)
         {
+            
             string link = "пока ничего";
+            // switch(method)
+            // {
+            //     case "comment":
+            //         link = 
+            // }
             Notification notification = new Notification
             {
                 id = Guid.NewGuid().ToString(),
