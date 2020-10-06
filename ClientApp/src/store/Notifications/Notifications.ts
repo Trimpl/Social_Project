@@ -42,8 +42,19 @@ interface RENDER_VIEW_POST {
 interface DELETE_VIEW_POST {
     type: 'DELETE_VIEW_POST'
 }
+interface SEND_COMMENT {
+    type: 'SEND_COMMENT'
+    userId: string
+    postId: string
+    text: string
+}
+interface SEND_LIKE {
+    type: 'SEND_LIKE'
+    userId: string
+    postId: string
+}
 
-type KnownAction = DELETE_VIEW_POST | RENDER_VIEW_POST | REQUEST_NOTIFICATIONS | RECEIVE_NOTIFICATIONS | NOTIFICATION_RECIEVED | REMOVE_NOTIFICATIONS
+type KnownAction = SEND_LIKE | SEND_COMMENT | DELETE_VIEW_POST | RENDER_VIEW_POST | REQUEST_NOTIFICATIONS | RECEIVE_NOTIFICATIONS | NOTIFICATION_RECIEVED | REMOVE_NOTIFICATIONS
 
 export const actionCreators = {
     request: (): AppThunkAction<KnownAction> => async (dispatch, getState) => {
@@ -82,6 +93,14 @@ export const actionCreators = {
     },
     deleteViewPost: (): AppThunkAction<KnownAction> => async (dispatch, getState) => {
         dispatch({ type: 'DELETE_VIEW_POST'})
+    },
+    sendComment: (postId: string, text: string): AppThunkAction<KnownAction> => async (dispatch, getState) => {
+        let user = await authService.getUser()
+        dispatch({ type: 'SEND_COMMENT', userId: user.sub, postId: postId, text: text })
+    },
+    sendLike: (postId: string): AppThunkAction<KnownAction> => async (dispatch, getState) => {
+        let user = await authService.getUser()
+        dispatch({ type: 'SEND_LIKE', userId: user.sub, postId: postId })
     },
 };
 

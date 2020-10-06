@@ -58,7 +58,7 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
         var count = this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString()
         return (
             <React.Fragment>
-                {this.props.post ? <ViewPost post={this.props.post} delete={this.deleteViewPost.bind(this)}/> : 'asd'}
+                {this.props.post ? <ViewPost sendLike={this.props.sendLike} sendComment={this.props.sendComment} post={this.props.post} delete={this.deleteViewPost.bind(this)}/> : 'asd'}
                 {/* <button onClick={() => this.renderViewPost()}>
                     poshel naxui
                 </button> */}
