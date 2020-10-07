@@ -3,6 +3,7 @@ import { Action, Reducer } from 'redux';
 import { AppThunkAction } from '..';
 import authService from '../../components/api-authorization/AuthorizeService';
 import { Post } from '../Posts/PostsStore';
+import { Comment } from '../../components/Comments/ListOfComments';
 
 export interface NotificationsState {
     isLoading: boolean
@@ -26,6 +27,10 @@ interface REQUEST_NOTIFICATIONS {
 interface RECEIVE_NOTIFICATIONS {
     type: 'RECEIVE_NOTIFICATIONS'
     notifications: Notification[]
+}
+interface COMMENT_RECEIVED {
+    type: 'COMMENT_RECEIVED'
+    newComment: Comment
 }
 interface NOTIFICATION_RECIEVED {
     type: 'NOTIFICATION_RECIEVED'
@@ -54,7 +59,7 @@ interface SEND_LIKE {
     postId: string
 }
 
-type KnownAction = SEND_LIKE | SEND_COMMENT | DELETE_VIEW_POST | RENDER_VIEW_POST | REQUEST_NOTIFICATIONS | RECEIVE_NOTIFICATIONS | NOTIFICATION_RECIEVED | REMOVE_NOTIFICATIONS
+type KnownAction = COMMENT_RECEIVED | SEND_LIKE | SEND_COMMENT | DELETE_VIEW_POST | RENDER_VIEW_POST | REQUEST_NOTIFICATIONS | RECEIVE_NOTIFICATIONS | NOTIFICATION_RECIEVED | REMOVE_NOTIFICATIONS
 
 export const actionCreators = {
     request: (): AppThunkAction<KnownAction> => async (dispatch, getState) => {
@@ -87,12 +92,11 @@ export const actionCreators = {
                     : []
             })
             .then(data => {
-                console.log(data)
                 dispatch({ type: 'RENDER_VIEW_POST', post: data })
             });
     },
     deleteViewPost: (): AppThunkAction<KnownAction> => async (dispatch, getState) => {
-        dispatch({ type: 'DELETE_VIEW_POST'})
+        dispatch({ type: 'DELETE_VIEW_POST' })
     },
     sendComment: (postId: string, text: string): AppThunkAction<KnownAction> => async (dispatch, getState) => {
         let user = await authService.getUser()
@@ -142,6 +146,16 @@ export const reducer: Reducer<NotificationsState> = (state: NotificationsState |
                 isLoading: false,
                 notifications: action.notifications
             };
+        case 'COMMENT_RECEIVED':
+            var post = state.post
+            if(post){
+                post!.comments = [...post!.comments, action.newComment]
+                return {
+                    ...state,
+                    post: post
+                }
+            }
+            break;
         case 'NOTIFICATION_RECIEVED':
             return {
                 ...state,
@@ -149,5 +163,6 @@ export const reducer: Reducer<NotificationsState> = (state: NotificationsState |
             }
             break;
     }
+    console.log(state.post)
     return state;
 };

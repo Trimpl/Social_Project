@@ -43,10 +43,7 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
         this.setState({ count: this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString() })
     }
     public prevent(e: React.MouseEvent) {
-        console.log(e.currentTarget)
-        // $('.dropdown-menu').click(function(e) {
-        //     e.stopPropagation();
-        // });
+        //console.log(e.currentTarget)
     }
     private renderViewPost(id: string) {
         this.props.renderViewPost(id)
@@ -56,12 +53,15 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
     }
     render() {
         var count = this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString()
+        console.log(this.props.post)
+        console.log(this.props.c)
+        var viewPost = this.props.post ? <ViewPost sendLike={this.props.sendLike}
+            sendComment={this.props.sendComment}
+            post={this.props.post}
+            delete={this.deleteViewPost.bind(this)} /> : 'asd'
         return (
             <React.Fragment>
-                {this.props.post ? <ViewPost sendLike={this.props.sendLike} sendComment={this.props.sendComment} post={this.props.post} delete={this.deleteViewPost.bind(this)}/> : 'asd'}
-                {/* <button onClick={() => this.renderViewPost()}>
-                    poshel naxui
-                </button> */}
+                {viewPost}
                 <div className="dropdown">
                     <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
