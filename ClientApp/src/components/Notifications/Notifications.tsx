@@ -14,14 +14,12 @@ type NotificationProps =
     RouteComponentProps<{}>;
 interface IState {
     count: string
-    post: Post | undefined
 }
 class Notifications extends React.PureComponent<NotificationProps, IState> {
     constructor(props: NotificationProps) {
         super(props)
         this.state = {
-            count: this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString(),
-            post: undefined
+            count: this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString()
         }
         this.remove = this.remove.bind(this)
     }
@@ -53,12 +51,10 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
     }
     render() {
         var count = this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString()
-        console.log(this.props.post)
-        console.log(this.props.c)
         var viewPost = this.props.post ? <ViewPost sendLike={this.props.sendLike}
             sendComment={this.props.sendComment}
             post={this.props.post}
-            delete={this.deleteViewPost.bind(this)} /> : 'asd'
+            delete={this.deleteViewPost.bind(this)} /> : ''
         return (
             <React.Fragment>
                 {viewPost}

@@ -14,6 +14,9 @@ interface IState {
     isAuthenticated: boolean,
     userName: string | null,
     userId: string | null,
+    name: string,
+    img: string
+
 }
 
 export class LoginMenu extends Component<IProps, IState> {
@@ -24,7 +27,9 @@ export class LoginMenu extends Component<IProps, IState> {
         this.state = {
             isAuthenticated: false,
             userName: null,
-            userId: null
+            userId: null,
+            name: '',
+            img: ''
         };
     }
 
@@ -37,8 +42,24 @@ export class LoginMenu extends Component<IProps, IState> {
         authService.unsubscribe(this._subscription);
     }
 
+    async getProfileAuthView() {
+        const token = await authService.getAccessToken()
+        fetch(`api/ProfileAuthView`, {
+            headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+        })
+            .then(response => {
+                return response.ok
+                    ? response.json()
+                    : []
+            })
+            .then(data => {
+                this.setState({ name: data.name, img: data.avatar })
+            });
+    }
+
     async populateState() {
         const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+        await this.getProfileAuthView()
         this.setState({
             isAuthenticated,
             userName: user && user.Email,
@@ -75,13 +96,17 @@ export class LoginMenu extends Component<IProps, IState> {
                     <NavLink tag={Link} className="text-dark" to="/ListOfGroups"><FontAwesomeIcon icon={faComments} /> Groups</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink tag={Link} className="text-dark" to={`/Profile/${userId}`}><FontAwesomeIcon icon={faUser} /> {userName} </NavLink>
-                </NavItem>
-                <NavItem>
                     <NavLink tag={Link} className="text-dark" to={logoutPath}><FontAwesomeIcon icon={faSignOutAlt} /></NavLink>
                 </NavItem>
                 <NavItem>
                     <Notifications />
+                </NavItem>
+                <NavItem className="dropDown">
+                    <NavLink tag={Link} className="text-dark" to={`/Profile/${userId}`}>
+                        {/* <FontAwesomeIcon icon={faUser} />  */}
+                        <img src={this.state.img} alt=""/>
+                        {this.state.name} 
+                        </NavLink>
                 </NavItem>
             </Fragment>);
     }

@@ -58,8 +58,18 @@ interface SEND_LIKE {
     userId: string
     postId: string
 }
+interface LIKE_RECEIVED {
+    type: 'LIKE_RECEIVED'
+    newLike: {
+        countsOfLikes: number
+        postId: string
+        isLiked: boolean
+        userId: string
+    }
+    user: any
+}
 
-type KnownAction = COMMENT_RECEIVED | SEND_LIKE | SEND_COMMENT | DELETE_VIEW_POST | RENDER_VIEW_POST | REQUEST_NOTIFICATIONS | RECEIVE_NOTIFICATIONS | NOTIFICATION_RECIEVED | REMOVE_NOTIFICATIONS
+type KnownAction = LIKE_RECEIVED | COMMENT_RECEIVED | SEND_LIKE | SEND_COMMENT | DELETE_VIEW_POST | RENDER_VIEW_POST | REQUEST_NOTIFICATIONS | RECEIVE_NOTIFICATIONS | NOTIFICATION_RECIEVED | REMOVE_NOTIFICATIONS
 
 export const actionCreators = {
     request: (): AppThunkAction<KnownAction> => async (dispatch, getState) => {
@@ -147,15 +157,42 @@ export const reducer: Reducer<NotificationsState> = (state: NotificationsState |
                 notifications: action.notifications
             };
         case 'COMMENT_RECEIVED':
-            var post = state.post
-            if(post){
-                post!.comments = [...post!.comments, action.newComment]
+            if (state.post) {
+                const comments = state.post.comments
                 return {
                     ...state,
-                    post: post
+                    post: {
+                        ...state.post,
+                        comments: [...comments, action.newComment]
+                    }
                 }
             }
+            else
+                return { ...state }
             break;
+        case 'LIKE_RECEIVED':
+            if (state.post && state.post.id === action.newLike.postId) {
+                state.post.likes = action.newLike.countsOfLikes
+                if (action.user.sub === action.newLike.userId)
+                    return {
+                        ...state,
+                        post: {
+                            ...state.post,
+                            likes: action.newLike.countsOfLikes,
+                            isLiked: action.newLike.isLiked
+                        }
+                    }
+                return {
+                    ...state,
+                    post: {
+                        ...state.post,
+                        likes: action.newLike.countsOfLikes,
+                    }
+                }
+            }
+            return {
+                ...state
+            }
         case 'NOTIFICATION_RECIEVED':
             return {
                 ...state,
@@ -163,6 +200,5 @@ export const reducer: Reducer<NotificationsState> = (state: NotificationsState |
             }
             break;
     }
-    console.log(state.post)
     return state;
 };

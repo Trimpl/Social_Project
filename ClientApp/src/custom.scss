@@ -1,10 +1,10 @@
 /* Provide sufficient contrast against white background */
 html {
   min-height: 100%;
-  background: rgb(225, 233, 238);
+  background: rgb(237,238,240);
 }
 .bg_index {
-  background: rgb(225, 233, 238);
+  background: rgb(237,238,240);
   min-height: 100%;
 }
 
@@ -119,4 +119,33 @@ code {
   svg {
     margin-left: 10px;
   }
+}
+
+// navbar
+
+.navbar {
+  .navbar-nav {
+    width: 90%;
+  }
+  background-color: rgb(255,255,255);
+  padding: 0;
+  height: 50px;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px; /* Радиус скругления */
+    border: 0px;
+    margin-right: 10px;
+  }
+  .nav-item {
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .dropDown {
+    margin-left: auto;
+    min-width: 180px;
+  }
+}
+.container {
+  max-width: 100%;
 }
