@@ -39,7 +39,8 @@ namespace WebApplication1.Controllers.ProfileControllers
             string id = HttpContext.User.Claims.ToArray()[5].Value;
             UserInfo user = await _context.UserInfo.FindAsync(id);
             var a = new {
-                Name = user.FirstName + " " + user.SecondName,
+                FirstName = user.FirstName,
+                SecondName = user.SecondName,
                 Avatar = user.Avatar
             };
             return Ok(a);

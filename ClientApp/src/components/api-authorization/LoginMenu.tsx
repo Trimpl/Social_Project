@@ -14,7 +14,8 @@ interface IState {
     isAuthenticated: boolean,
     userName: string | null,
     userId: string | null,
-    name: string,
+    firstName: string,
+    secondName: string,
     img: string
 
 }
@@ -28,7 +29,8 @@ export class LoginMenu extends Component<IProps, IState> {
             isAuthenticated: false,
             userName: null,
             userId: null,
-            name: '',
+            firstName: '',
+            secondName: '',
             img: ''
         };
     }
@@ -53,7 +55,7 @@ export class LoginMenu extends Component<IProps, IState> {
                     : []
             })
             .then(data => {
-                this.setState({ name: data.name, img: data.avatar })
+                this.setState({ firstName: data.firstName, secondName: data.secondName, img: data.avatar })
             });
     }
 
@@ -102,11 +104,40 @@ export class LoginMenu extends Component<IProps, IState> {
                     <Notifications />
                 </NavItem>
                 <NavItem className="dropDown">
-                    <NavLink tag={Link} className="text-dark" to={`/Profile/${userId}`}>
-                        {/* <FontAwesomeIcon icon={faUser} />  */}
-                        <img src={this.state.img} alt=""/>
-                        {this.state.name} 
-                        </NavLink>
+                    <div className="dropdown">
+                        <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src={this.state.img} alt="" />
+                            {this.state.firstName}
+                        </button>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <Link className="text-dark" to={`/Profile/${userId}`}>
+                                <div className="dropdown-item notifications row_notification profile_select">
+                                    <img src={this.state.img} alt="" className="row_notification" />
+                                    <div className="row_notification">
+                                        <div className="top_name">
+                                            {this.state.firstName} {this.state.secondName}
+                                        </div>
+                                        <div className="bottom_name">
+                                            Go to profile
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                            <Link to="/EditProfile">
+                                <div className="dropdown-item notifications row_notification">
+                                    <div className="row_notification link_select">
+                                        Edit profile
+                                    </div>
+                                </div>
+                            </Link>
+                            <div className="dropdown-item notifications row_notification">
+                                <div className="row_notification link_select">
+                                    Logout
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </NavItem>
             </Fragment>);
     }

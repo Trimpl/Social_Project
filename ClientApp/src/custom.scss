@@ -1,10 +1,11 @@
 /* Provide sufficient contrast against white background */
 html {
   min-height: 100%;
-  background: rgb(237,238,240);
+  background: rgb(237, 238, 240);
 }
+
 .bg_index {
-  background: rgb(237,238,240);
+  background: rgb(237, 238, 240);
   min-height: 100%;
 }
 
@@ -60,6 +61,7 @@ code {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .post_author:hover {
   text-decoration: underline;
 }
@@ -70,6 +72,7 @@ code {
   position: relative;
   font-size: 12.5px;
   color: #363636 !important;
+
   a {
     color: #363636 !important;
     text-decoration: none
@@ -109,13 +112,17 @@ code {
 
 .notifications {
   border-bottom: #363636 1px !important;
+  width: 250px;
+
   img {
     width: 40px;
     height: 40px;
-    border-radius: 20px; /* Радиус скругления */
+    border-radius: 20px;
+    /* Радиус скругления */
     border: 0px;
     margin-right: 10px;
   }
+
   svg {
     margin-left: 10px;
   }
@@ -127,25 +134,100 @@ code {
   .navbar-nav {
     width: 90%;
   }
-  background-color: rgb(255,255,255);
+
+  background-color: rgb(255, 255, 255);
   padding: 0;
   height: 50px;
+
   img {
     width: 40px;
     height: 40px;
-    border-radius: 20px; /* Радиус скругления */
+    border-radius: 20px;
+    /* Радиус скругления */
     border: 0px;
     margin-right: 10px;
   }
+
   .nav-item {
     margin-top: auto;
     margin-bottom: auto;
   }
+
   .dropDown {
     margin-left: auto;
     min-width: 180px;
   }
+
+  .btn {
+    border: 0;
+    border-radius: 0;
+  }
+
+  .btn:focus,
+  .btn.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0 rgb(237, 238, 240);
+    background-color: rgb(237, 238, 240) !important;
+  }
+
+  .btn:hover {
+    background-color: #f7f8fa;
+  }
+
+  .dropdown-menu {
+    margin: 0;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+  }
+
+  .top_name {
+    font-size: 14px;
+    line-height: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #2a5885;
+  }
+
+  .bottom_name {
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #828282;
+  }
+
+  .profile_select {
+    border-bottom: 1px solid #dae2ea !important;
+    padding-bottom: 10px;
+  }
+
+  .link_select {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    line-height: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #2a5885;
+  }
+
+  a {
+    color: #2a5885;
+    text-decoration: none;
+  }
 }
+
+.row_notification {
+  float: left;
+}
+
 .container {
   max-width: 100%;
 }
