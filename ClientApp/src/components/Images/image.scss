@@ -30,6 +30,22 @@
   height: auto !important;
   border-radius: 2px;
 }
+.post_modal {
+  position: fixed;
+  border-radius: 8px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+  max-width: 75%;
+  max-height: 100%;
+  z-index: 600;
+  object-fit: cover;
+  object-fit: cover;
+  height: auto !important;
+  border-radius: 2px;
+}
 
 $button-size: 40px;
 $close-width: ($button-size / 10);
@@ -38,6 +54,7 @@ $close-width: ($button-size / 10);
   width: 100vw;
   height: 100vh;
   display: flex;
+
 }
 
 .close-button {

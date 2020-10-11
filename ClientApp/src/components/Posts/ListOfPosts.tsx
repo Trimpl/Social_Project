@@ -62,12 +62,9 @@ class ListOfPosts extends React.PureComponent<CreatePostProps, IState> {
                     <div className="px-1 col-12 col-lg-8 col-xl-8">
                         {this.props.posts.map(data => {
                             let postDate = new Date(data.createDate)
-                            let date: string
-                            if (postDate.toLocaleDateString() == new Date().toLocaleDateString()) {
-                                date = postDate.toLocaleTimeString()
-                            } else {
-                                date = `${postDate.toLocaleDateString()} ${postDate.toLocaleTimeString()}`
-                            }
+                            let date: string = (postDate.toLocaleDateString() == new Date().toLocaleDateString())
+                                ? postDate.toLocaleTimeString()
+                                : `${postDate.toLocaleDateString()} ${postDate.toLocaleTimeString()}`
                             return (
                                 <div key={data.id} className="post_content bg-white my-3 py-2 rounded shadow">
                                     <Link to={data.link}>
@@ -86,7 +83,7 @@ class ListOfPosts extends React.PureComponent<CreatePostProps, IState> {
                                         <div className="row ml-1 my-2">
                                             {data.pictureLink.map((picture) => {
                                                 return (
-                                                    <Img link={picture.pictureLink} id={picture.id} key={picture.id}/>
+                                                    <Img link={picture.pictureLink} id={picture.id} key={picture.id} />
                                                 )
                                             })}
                                         </div>

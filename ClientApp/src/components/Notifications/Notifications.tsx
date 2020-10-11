@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { ViewPost } from '../Posts/ViewPost';
+import { Post } from '../../store/Posts/PostsStore';
 
 type NotificationProps =
     NotificationStore.NotificationsState &
@@ -24,13 +26,13 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
     public componentDidMount() {
         this.ensureDataFetched()
     }
-    private remove(id: string, e : React.MouseEvent) {
-        //const a = this.props.notifications.map(data => data.id)
-        console.log(e.currentTarget)
-        e.preventDefault();
+    private remove(id: string, e: React.MouseEvent) {
         const a = [id]
         this.props.removeNotifications(a)
         this.setState({ count: this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString() })
+        // $('.dropdown-menu').click(function(e) {
+        //     e.stopPropagation();
+        // });
     }
     private ensureDataFetched() {
         this.props.request()
@@ -39,32 +41,40 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
         this.setState({ count: this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString() })
     }
     public prevent(e: React.MouseEvent) {
-        console.log(e.currentTarget)
-        e.preventDefault()
-        e.stopPropagation()
+        //console.log(e.currentTarget)
+    }
+    private renderViewPost(id: string) {
+        this.props.renderViewPost(id)
+    }
+    private deleteViewPost() {
+        this.props.deleteViewPost()
     }
     render() {
         var count = this.props.notifications.length === 0 ? '' : this.props.notifications.length.toString()
+        var viewPost = this.props.post ? <ViewPost sendLike={this.props.sendLike}
+            sendComment={this.props.sendComment}
+            post={this.props.post}
+            delete={this.deleteViewPost.bind(this)} /> : ''
         return (
             <React.Fragment>
+                {viewPost}
                 <div className="dropdown">
                     <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        //onClick={() => this.remove()}
-                        >
+                    >
                         <span className="badge badge-pill badge-warning">{count}</span>
                         <FontAwesomeIcon icon={faBell} />
                     </button>
                     {count != ''
                         ?
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" onClick={(event) => this.prevent(event)}>
                             {this.props.notifications.map((data) => {
                                 const b = data.image != "" ? <img src={data.image} alt="" /> : <div></div>
                                 return (
-                                    <div key={data.id} className="dropdown-item notifications" onClick={(event) => this.prevent(event)}>
+                                    <div key={data.id} className="dropdown-item notifications">
                                         <div>
                                             {b}
-                                            {data.text}
+                                            <div onClick={() => this.renderViewPost(data.postId)}>{data.text}</div>
                                             <FontAwesomeIcon icon={faTrashAlt} onClick={(event) => this.remove(data.id, event)} />
                                         </div>
                                     </div>
@@ -73,7 +83,7 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
                         </div>
                         :
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <div style={{marginLeft: 10}}>
+                            <div style={{ marginLeft: 10 }}>
                                 No notifications
                             </div>
                         </div>}

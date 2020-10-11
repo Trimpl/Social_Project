@@ -14,5 +14,6 @@ namespace WebApplication1.Models
         public string image { get; set; }
         public bool isViewed { get; set; }
         public DateTime createDate { get; set; }
+        public string postId { get; set; }
     }
 }
