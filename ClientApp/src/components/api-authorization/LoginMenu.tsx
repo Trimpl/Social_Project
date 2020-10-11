@@ -98,19 +98,16 @@ export class LoginMenu extends Component<IProps, IState> {
                     <NavLink tag={Link} className="text-dark" to="/ListOfGroups"><FontAwesomeIcon icon={faComments} /> Groups</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink tag={Link} className="text-dark" to={logoutPath}><FontAwesomeIcon icon={faSignOutAlt} /></NavLink>
-                </NavItem>
-                <NavItem>
                     <Notifications />
                 </NavItem>
                 <NavItem className="dropDown">
                     <div className="dropdown">
-                        <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton"
+                        <button className="btn dropdown-toggle top_name_select" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src={this.state.img} alt="" />
                             {this.state.firstName}
                         </button>
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <div className="dropdown-menu animate slideIn" aria-labelledby="dropdownMenuButton">
                             <Link className="text-dark" to={`/Profile/${userId}`}>
                                 <div className="dropdown-item notifications row_notification profile_select">
                                     <img src={this.state.img} alt="" className="row_notification" />
@@ -131,11 +128,13 @@ export class LoginMenu extends Component<IProps, IState> {
                                     </div>
                                 </div>
                             </Link>
-                            <div className="dropdown-item notifications row_notification">
-                                <div className="row_notification link_select">
-                                    Logout
+                            <Link to={logoutPath}>
+                                <div className="dropdown-item notifications row_notification">
+                                    <div className="row_notification link_select">
+                                        Logout
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </NavItem>

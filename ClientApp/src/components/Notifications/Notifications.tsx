@@ -60,14 +60,14 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
                 {viewPost}
                 <div className="dropdown">
                     <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                    >
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span className="badge badge-pill badge-warning">{count}</span>
-                        <FontAwesomeIcon icon={faBell} />
-                    </button>
+                        {/* <FontAwesomeIcon icon={faBell} /> */}
+                        <img src="./not.png" alt=""/>
+                      </button>
                     {count != ''
                         ?
-                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton" onClick={(event) => this.prevent(event)}>
+                        <div className="dropdown-menu animate slideIn" aria-labelledby="dropdownMenuButton" onClick={(event) => this.prevent(event)}>
                             {this.props.notifications.map((data) => {
                                 const b = data.image != "" ? <img src={data.image} alt="" /> : <div></div>
                                 return (
