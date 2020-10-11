@@ -14,6 +14,10 @@ interface IState {
     isAuthenticated: boolean,
     userName: string | null,
     userId: string | null,
+    firstName: string,
+    secondName: string,
+    img: string
+
 }
 
 export class LoginMenu extends Component<IProps, IState> {
@@ -24,7 +28,10 @@ export class LoginMenu extends Component<IProps, IState> {
         this.state = {
             isAuthenticated: false,
             userName: null,
-            userId: null
+            userId: null,
+            firstName: '',
+            secondName: '',
+            img: ''
         };
     }
 
@@ -37,8 +44,24 @@ export class LoginMenu extends Component<IProps, IState> {
         authService.unsubscribe(this._subscription);
     }
 
+    async getProfileAuthView() {
+        const token = await authService.getAccessToken()
+        fetch(`api/ProfileAuthView`, {
+            headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+        })
+            .then(response => {
+                return response.ok
+                    ? response.json()
+                    : []
+            })
+            .then(data => {
+                this.setState({ firstName: data.firstName, secondName: data.secondName, img: data.avatar })
+            });
+    }
+
     async populateState() {
         const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+        await this.getProfileAuthView()
         this.setState({
             isAuthenticated,
             userName: user && user.Email,
@@ -75,13 +98,46 @@ export class LoginMenu extends Component<IProps, IState> {
                     <NavLink tag={Link} className="text-dark" to="/ListOfGroups"><FontAwesomeIcon icon={faComments} /> Groups</NavLink>
                 </NavItem>
                 <NavItem>
-                    <NavLink tag={Link} className="text-dark" to={`/Profile/${userId}`}><FontAwesomeIcon icon={faUser} /> {userName} </NavLink>
-                </NavItem>
-                <NavItem>
                     <NavLink tag={Link} className="text-dark" to={logoutPath}><FontAwesomeIcon icon={faSignOutAlt} /></NavLink>
                 </NavItem>
                 <NavItem>
                     <Notifications />
+                </NavItem>
+                <NavItem className="dropDown">
+                    <div className="dropdown">
+                        <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src={this.state.img} alt="" />
+                            {this.state.firstName}
+                        </button>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <Link className="text-dark" to={`/Profile/${userId}`}>
+                                <div className="dropdown-item notifications row_notification profile_select">
+                                    <img src={this.state.img} alt="" className="row_notification" />
+                                    <div className="row_notification">
+                                        <div className="top_name">
+                                            {this.state.firstName} {this.state.secondName}
+                                        </div>
+                                        <div className="bottom_name">
+                                            Go to profile
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                            <Link to="/EditProfile">
+                                <div className="dropdown-item notifications row_notification">
+                                    <div className="row_notification link_select">
+                                        Edit profile
+                                    </div>
+                                </div>
+                            </Link>
+                            <div className="dropdown-item notifications row_notification">
+                                <div className="row_notification link_select">
+                                    Logout
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </NavItem>
             </Fragment>);
     }
