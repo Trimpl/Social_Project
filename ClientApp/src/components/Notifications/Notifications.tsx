@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBell, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { ViewPost } from '../Posts/ViewPost';
 import { Post } from '../../store/Posts/PostsStore';
+import notification from './noti.png'
 
 type NotificationProps =
     NotificationStore.NotificationsState &
@@ -58,25 +59,34 @@ class Notifications extends React.PureComponent<NotificationProps, IState> {
         return (
             <React.Fragment>
                 {viewPost}
-                <div className="dropdown">
+                <div className="dropdown" id="notification_drop_down">
                     <button className="btn dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span className="badge badge-pill badge-warning">{count}</span>
+                        <span className="badge text-light badge-pill badge-danger">{count}</span>
                         {/* <FontAwesomeIcon icon={faBell} /> */}
-                        <img src="./not.png" alt=""/>
-                      </button>
+                        <img src={notification} id="notification_image" alt="" />
+                    </button>
                     {count != ''
                         ?
-                        <div className="dropdown-menu animate slideIn" aria-labelledby="dropdownMenuButton" onClick={(event) => this.prevent(event)}>
+                        <div className="dropdown-menu animate slideIn"
+                            aria-labelledby="dropdownMenuButton"
+                            onClick={(event) => this.prevent(event)}>
                             {this.props.notifications.map((data) => {
+                                let postDate = new Date(data.createDate)
+                                let date: string = (postDate.toLocaleDateString() == new Date().toLocaleDateString())
+                                    ? postDate.toLocaleTimeString()
+                                    : `${postDate.toLocaleDateString()} ${postDate.getHours()}:${postDate.getMinutes()}`
                                 const b = data.image != "" ? <img src={data.image} alt="" /> : <div></div>
                                 return (
-                                    <div key={data.id} className="dropdown-item notifications">
-                                        <div>
-                                            {b}
-                                            <div onClick={() => this.renderViewPost(data.postId)}>{data.text}</div>
-                                            <FontAwesomeIcon icon={faTrashAlt} onClick={(event) => this.remove(data.id, event)} />
-                                        </div>
+                                    <div key={data.id}
+                                        className="dropdown-item notifications_item">
+                                        <div className="row_notification">{b}</div>
+                                        <div className="row_notification feedback_header"
+                                            onClick={() => this.renderViewPost(data.postId)}>{data.text}</div>
+                                        {/* <FontAwesomeIcon icon={faTrashAlt} 
+                                        onClick={(event) => this.remove(data.id, event)} /> */}
+                                        <select name="" id=""></select>
+                                        <div className="feedback_footer">{date}</div>
                                     </div>
                                 )
                             })}

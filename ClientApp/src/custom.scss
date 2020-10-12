@@ -153,11 +153,6 @@ code {
     margin-bottom: auto;
   }
 
-  .dropDown {
-    margin-left: auto;
-    min-width: 180px;
-  }
-
   .btn {
     border: 0;
     border-radius: 0;
@@ -176,6 +171,7 @@ code {
 
   .dropdown-menu {
     margin: 0;
+    padding-bottom: 0px;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -229,6 +225,75 @@ code {
 
   .top_nav_btn_icon {
     background-image: url(components/Notifications/not.png);
+  }
+
+  #notification_image {
+    border-radius: 0px;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+  }
+
+  .badge {
+    position: absolute;
+    left: 31%;
+    font-weight: 100;
+    top: 10%;
+  }
+
+  #dropdownMenuButton {
+    height: 100%;
+  }
+
+  #notId {
+    margin: 0;
+  }
+
+  .dropDown {
+    margin-left: auto;
+    min-width: 180px;
+  }
+
+  #notification_drop_down {
+    height: 100%;
+  }
+
+  .feedback_footer {
+    font-size: 12.5px;
+    color: #939393;
+    overflow: hidden;
+  }
+
+  .feedback_header {
+    color: #000000;
+    line-height: 17px;
+    min-height: 50px;
+    font-size: 13px;
+    font-weight: 440;
+    word-wrap: break-word !important;
+    text-overflow: ellipsis;
+    width: 250px;
+    white-space: pre-wrap;
+  }
+
+  .notifications_item {
+    border-bottom: #dae2ea 1px solid !important;
+    width: 400px;
+    min-height: 50px;
+    overflow: auto;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      /* Радиус скругления */
+      border: 0px;
+      margin-right: 10px;
+    }
+
+    svg {
+      margin-left: 10px;
+    }
   }
 }
 
