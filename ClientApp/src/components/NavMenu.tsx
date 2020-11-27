@@ -25,7 +25,7 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
                         </Collapse>
                     </Container>
                 </Navbar>
-                <nav id="sidebar">
+                {/* <nav id="sidebar">
                     <div className="sidebar-header">
                         <h3>Bootstrap Sidebar</h3>
                     </div>
@@ -79,7 +79,7 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
                             <a href="https://bootstrapious.com/p/bootstrap-sidebar" className="article">Back to article</a>
                         </li>
                     </ul>
-                </nav>
+                </nav> */}
             </header>
         );
     }

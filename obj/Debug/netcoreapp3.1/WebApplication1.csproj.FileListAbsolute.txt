@@ -110,7 +110,6 @@ C:\Users\Trimpl\Desktop\Primary-master-master\obj\Debug\netcoreapp3.1\WebApplica
 C:\Users\Trimpl\Desktop\Primary-master-master\obj\Debug\netcoreapp3.1\WebApplication1.csprojAssemblyReference.cache
 C:\Users\Trimpl\Desktop\Social_Project\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\Trimpl\Desktop\Social_Project\bin\Debug\netcoreapp3.1\appsettings.json
-C:\Users\Trimpl\Desktop\Social_Project\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Users\Trimpl\Desktop\Social_Project\bin\Debug\netcoreapp3.1\www\fonts\metadata\icons.json
 C:\Users\Trimpl\Desktop\Social_Project\bin\Debug\netcoreapp3.1\www\fonts\metadata\shims.json
 C:\Users\Trimpl\Desktop\Social_Project\bin\Debug\netcoreapp3.1\WebApplication1.StaticWebAssets.xml
@@ -218,3 +217,4 @@ C:\Users\Trimpl\Desktop\Social_Project\obj\Debug\netcoreapp3.1\staticwebassets\W
 C:\Users\Trimpl\Desktop\Social_Project\obj\Debug\netcoreapp3.1\WebApplication1.dll
 C:\Users\Trimpl\Desktop\Social_Project\obj\Debug\netcoreapp3.1\WebApplication1.pdb
 C:\Users\Trimpl\Desktop\Social_Project\obj\Debug\netcoreapp3.1\WebApplication1.genruntimeconfig.cache
+C:\Users\Trimpl\Desktop\Social_Project\obj\Debug\netcoreapp3.1\scopedcss\bundle\WebApplication1.styles.css
