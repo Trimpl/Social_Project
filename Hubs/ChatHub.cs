@@ -118,7 +118,7 @@ namespace WebApplication1.Hubs
             };
             string userWhoToSend = _context.Posts.FirstOrDefault(x => x.Id == postId).userId;
             var userWhoLiked = await _context.UserInfo.FindAsync(userId);
-            if (model.isLiked && userWhoToSend != userWhoLiked.Id) await this.CreateNotification(userWhoToSend, "like", $"You have like from {userWhoLiked.FirstName} {userWhoLiked.SecondName}", userWhoLiked.Avatar, postId);
+            if (model.isLiked && userWhoToSend != userWhoLiked.Id) await this.CreateNotification(userWhoToSend, "like", $"New like from {userWhoLiked.FirstName} {userWhoLiked.SecondName}", userWhoLiked.Avatar, postId);
             await Clients.All.SendAsync("NewLike", model);
         }
         public async Task SendComment(string userId, string postId, string text)
@@ -137,7 +137,7 @@ namespace WebApplication1.Hubs
                     link = userId
                 };
                 string userWhoToSend = _context.Posts.FirstOrDefault(x => x.Id == postId).userId;
-                if (userWhoToSend != userId) await this.CreateNotification(userWhoToSend, "comment", $"You have new comment: {comment.text}", user.Avatar, postId);
+                if (userWhoToSend != userId) await this.CreateNotification(userWhoToSend, "comment", $"New comment from {user.FirstName} {user.SecondName}: {comment.text}", user.Avatar, postId);
                 await _context.Comments.AddAsync(comment);
                 await _context.SaveChangesAsync();
                 comment.userId = $"{user.FirstName} {user.SecondName}";

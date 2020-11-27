@@ -97,12 +97,12 @@ export class LoginMenu extends Component<IProps, IState> {
                 <NavItem>
                     <NavLink tag={Link} className="text-dark" to="/ListOfGroups"><FontAwesomeIcon icon={faComments} /> Groups</NavLink>
                 </NavItem>
-                <NavItem>
+                <NavItem id="notId">
                     <Notifications />
                 </NavItem>
                 <NavItem className="dropDown">
                     <div className="dropdown">
-                        <button className="btn dropdown-toggle top_name_select" type="button" id="dropdownMenuButton"
+                        <button className="btn dropdown-toggle top_name_select" type="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src={this.state.img} alt="" />
                             {this.state.firstName}
