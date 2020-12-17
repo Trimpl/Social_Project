@@ -45,12 +45,7 @@ namespace WebApplication1
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-            services.AddIdentityServer(
-                // options =>
-                // {
-                //     options.PublicOrigin = "http://93.125.99.108/plesk-site-preview/socialnetwork.of.by/";
-                // }
-                )
+            services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>()
                 .AddProfileService<ProfileService>();
             services.AddAuthentication()
